@@ -1,6 +1,8 @@
 #include "util/prelude.hpp"
 #include <cassert>
 
+#ifdef SOLUTION_A
+// Runs in O(n^2) time and O(1) space
 class Solution {
 public:
   vector<int> twoSum(vector<int> &nums, int target) {
@@ -15,6 +17,26 @@ public:
         }
       }
     }
+    assert(false);
+  }
+};
+#endif
+
+class Solution {
+public:
+  vector<int> twoSum(vector<int> &nums, int target) {
+    // Number -> index in `nums`
+    std::unordered_map<int, int> index;
+
+    for (int i = 0; i < nums.size(); i++) {
+      int compliment = target - nums[i];
+      auto found = index.find(compliment);
+      if (found != index.end()) {
+        return {i, found->second};
+      }
+      index[nums[i]] = i;
+    }
+
     assert(false);
   }
 };
