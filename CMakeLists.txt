@@ -2,7 +2,7 @@ project(leetcode)
 cmake_minimum_required(VERSION 4.1.0)
 
 set(SOURCES
-    src/21-parentheses.cpp
+    src/20-parentheses.cpp
 )
 
 foreach(SRC ${SOURCES})
