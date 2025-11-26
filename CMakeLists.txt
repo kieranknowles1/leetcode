@@ -1,9 +1,7 @@
 project(leetcode)
 cmake_minimum_required(VERSION 4.1.0)
 
-set(SOURCES
-    src/20-parentheses.cpp
-)
+file(STRINGS sources.txt SOURCES)
 
 foreach(SRC ${SOURCES})
     get_filename_component(filename ${SRC} NAME_WE)
