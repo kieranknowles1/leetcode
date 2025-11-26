@@ -3,6 +3,7 @@
 
 #include <functional>
 #include <iostream>
+#include <stack>
 #include <string>
 #include <utility>
 #include <vector>
@@ -18,11 +19,11 @@ bool runTests(const TestCases<TIn, TOut> &testCases,
   bool passed = true;
   for (const auto &testCase : testCases) {
     const auto &[input, expected] = testCase;
+    cout << "Test: input = " << input << ", expected = " << expected << endl;
     bool result = testFunc(input) == expected;
     passed &= result;
     if (!result) {
-      cout << "Test failed: input = " << input << ", expected = " << expected
-           << ", actual = " << testFunc(input) << endl;
+      cout << "Test failed: actual = " << testFunc(input) << endl;
     }
   }
   return passed;
