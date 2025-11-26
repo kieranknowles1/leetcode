@@ -14,6 +14,10 @@ using namespace std;
 template <typename TIn, typename TOut>
 using TestCases = vector<pair<TIn, TOut>>;
 
+void check(int caseNum, bool ok) {
+  cout << "Test " << caseNum << " " << (ok ? "OK" : "Failing") << endl;
+}
+
 template <typename TIn, typename TOut>
 bool runTests(const TestCases<TIn, TOut> &testCases,
               function<TOut(TIn)> testFunc) {
