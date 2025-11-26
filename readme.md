@@ -1,12 +1,8 @@
-# Template Repository
+# LeetCode Solutions
 
-For more information, see [the book](./docs/readme.md)
+My solutions to LeetCode problems.
 
-This is a repository based on my
-[NixOS Configuration](https://github.com/kieranknowles1/nixcfg).
-
-See comments in [flake.nix](./flake.nix) for more information.
-
-Contains boilerplate for the following modules. Delete as needed:
-
-- [mdBook documentation](./docs). Exposed as the `docs` flake output.
+| Problem                    | Time Complexity | Space Complexity |
+| -------------------------- | --------------- | ---------------- |
+| 20. Valid Parentheses      | O(n)            | O(n)             |
+| 21. Merge Two Sorted Lists | O(n)            | O(1)             |
