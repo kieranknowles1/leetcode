@@ -50,11 +50,6 @@ TestCases<string, bool> TEST_CASES = {
     {"([)]", false}, {"((", false},    {"){", false}};
 
 int main() {
-  function<bool(string)> t = [](string input) {
-    Solution solution;
-    return solution.isValid(input);
-  };
-
   runTests<string, bool>(TEST_CASES, [](string input) {
     Solution solution;
     return solution.isValid(input);
