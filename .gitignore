@@ -1,0 +1,8 @@
+# Nix build outputs
+result
+
+# mdBook output
+/docs/book/
+
+# CMake output
+/build/
