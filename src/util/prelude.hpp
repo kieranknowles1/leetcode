@@ -1,6 +1,7 @@
 // Prelude that sets up a leetcode-like environment
 // and provides utilites for testing
 
+#include <assert.h>
 #include <functional>
 #include <iostream>
 #include <map>
