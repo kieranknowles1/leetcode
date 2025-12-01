@@ -3,3 +3,4 @@ src/21-merge.cpp
 src/1-twosum.cpp
 src/74-mat2d.cpp
 src/13-fromroman.cpp
+src/237-delnode.cpp
