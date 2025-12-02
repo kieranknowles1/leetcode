@@ -5,3 +5,4 @@ src/74-mat2d.cpp
 src/13-fromroman.cpp
 src/237-delnode.cpp
 advent/1-secret.cpp
+advent/2-products.cpp

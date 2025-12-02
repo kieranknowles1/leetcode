@@ -1,11 +1,10 @@
 // https://adventofcode.com/2025/day/1
 
 #include <filesystem>
-#include <fstream>
 #include <iostream>
-#include <stdexcept>
 #include <string>
-#include <vector>
+
+#include "utils.hpp"
 
 struct Dial {
   int position = 50;
@@ -32,19 +31,6 @@ struct Dial {
   }
 };
 
-std::vector<std::string> readlines(std::filesystem::path path) {
-  std::ifstream stream(path);
-  if (stream.bad()) {
-    throw std::runtime_error("Unable to read file");
-  }
-
-  std::vector<std::string> out;
-  for (std::string line; std::getline(stream, line);) {
-    out.push_back(line);
-  }
-  return out;
-}
-
 struct Movement {
   char direction;
   int amount;
@@ -56,7 +42,7 @@ struct Movement {
 };
 
 Dial decodeFile(std::filesystem::path path) {
-  auto lines = readlines(path);
+  auto lines = readlines(path, '\n');
   Dial dial;
   for (auto &line : lines) {
     Movement move(line);
