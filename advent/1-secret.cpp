@@ -12,6 +12,8 @@ struct Dial {
   int submittedZeros = 0;
   int clickedZero = 0;
 
+  // Brute force approach. Count every time the dial reads zero, clicking
+  // incrementally
   void click(char direction) {
     position += (direction == 'R' ? 1 : -1);
     if (position < 0) {

@@ -1,21 +1,38 @@
+#include <cassert>
 #include <cstdint>
 #include <iostream>
 #include <string>
 
 #include "utils.hpp"
 
-bool productValid(int64_t id) {
-  std::string str = std::to_string(id);
-  if (str.length() % 2 != 0)
-    return true;
+bool substrRepeats(std::string_view idStr, int repetitions) {
+  if (idStr.length() % repetitions != 0)
+    return false;
 
-  for (int x = 0; x < str.length() / 2; x++) {
-    int y = x + str.length() / 2;
-    if (str[x] != str[y])
-      return true;
+  int subLength = idStr.length() / repetitions;
+  assert(subLength * repetitions == idStr.length());
+
+  for (int x = 0; x < subLength; x++) {
+    char first = idStr[x];
+    for (int y = 1; y < repetitions; y++) {
+      char second = idStr[x + (subLength * y)];
+      if (first != second)
+        return false;
+    }
   }
 
-  return false;
+  return true;
+}
+
+bool productValid(int64_t id) {
+  std::string str = std::to_string(id);
+
+  for (int reps = 2; reps <= str.length(); reps++) {
+    if (substrRepeats(str, reps)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 int64_t invalidIdSum(std::filesystem::path file) {
@@ -40,7 +57,7 @@ int64_t invalidIdSum(std::filesystem::path file) {
 
 int main() {
   int64_t result = invalidIdSum("assets/2/example.txt");
-  std::cout << "Sum of invalid IDs is " << result << " expected 1227775554"
+  std::cout << "Sum of invalid IDs is " << result << " expected 4174379265"
             << std::endl;
 
   result = invalidIdSum("assets/2/input.txt");
