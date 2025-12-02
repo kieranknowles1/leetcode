@@ -7,6 +7,31 @@
 #include <string>
 #include <vector>
 
+struct Dial {
+  int position = 50;
+
+  int submittedZeros = 0;
+  int clickedZero = 0;
+
+  void click(char direction) {
+    position += (direction == 'R' ? 1 : -1);
+    if (position < 0) {
+      position += 100;
+    } else if (position > 99) {
+      position -= 100;
+    }
+
+    if (position == 0) {
+      clickedZero++;
+    }
+  }
+  void submit() {
+    if (position == 0) {
+      submittedZeros++;
+    }
+  }
+};
+
 std::vector<std::string> readlines(std::filesystem::path path) {
   std::ifstream stream(path);
   if (stream.bad()) {
@@ -20,31 +45,37 @@ std::vector<std::string> readlines(std::filesystem::path path) {
   return out;
 }
 
-int parseMovement(std::string_view line) {
-  char direction = line[0];
-  int amount = std::stoi(line.data() + 1);
-  return amount * (direction == 'R' ? 1 : -1);
-}
+struct Movement {
+  char direction;
+  int amount;
 
-int decodeFile(std::filesystem::path path) {
+  Movement(std::string_view line) {
+    this->direction = line[0];
+    this->amount = std::stoi(line.data() + 1);
+  }
+};
+
+Dial decodeFile(std::filesystem::path path) {
   auto lines = readlines(path);
-  int position = 50;
-  int zeros = 0;
+  Dial dial;
   for (auto &line : lines) {
-    int amount = parseMovement(line);
-    position += amount;
-
-    if (position % 100 == 0)
-      zeros++;
+    Movement move(line);
+    while (move.amount > 0) {
+      dial.click(move.direction);
+      move.amount--;
+    }
+    dial.submit();
   }
 
-  return zeros;
+  return dial;
 }
 
 int main() {
-  int ret = decodeFile("assets/1/example.txt");
-  std::cout << "Got " << ret << " expected 3" << std::endl;
+  Dial ret = decodeFile("assets/1/example.txt");
+  std::cout << "Got " << ret.submittedZeros << ", " << ret.clickedZero
+            << ") expected 3, 6" << std::endl;
 
-  int final = decodeFile("assets/1/input.txt");
-  std::cout << "First answer: " << final << std::endl;
+  Dial final = decodeFile("assets/1/input.txt");
+  std::cout << "First answer: " << final.submittedZeros << ", "
+            << final.clickedZero << std::endl;
 }
