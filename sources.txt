@@ -6,3 +6,4 @@ src/13-fromroman.cpp
 src/237-delnode.cpp
 advent/1-secret.cpp
 advent/2-products.cpp
+advent/3-power.cpp
