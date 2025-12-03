@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 4.1.0)
 project(leetcode)
 
+# Advent of code often relies on larger values than can fit in a u32. Check
+# for overflows caused by this.
+add_compile_options(-fsanitize=integer)
+add_link_options(-fsanitize=integer)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
   set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES

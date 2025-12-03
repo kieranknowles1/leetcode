@@ -1,14 +1,26 @@
+#include <cmath>
+#include <cstdint>
 #include <iostream>
 
 #include "utils.hpp"
 
+const constexpr int ActiveBatteries = 12;
+
 int charToInt(char c) { return c - '0'; }
 
-int maxVoltage(std::string_view line) {
-  int firstBattery = 0;
+uint64_t ipow(uint64_t base, uint64_t exp) {
+  uint64_t result = 1;
+  for (int i = 0; i < exp; i++) {
+    result *= base;
+  }
+  return result;
+}
+
+uint64_t maxVoltage(std::string_view line, int active) {
+  uint64_t firstBattery = 0;
   int firstIdx = 0;
 
-  for (int i = 0; i < line.length() - 1; i++) {
+  for (int i = 0; i <= line.length() - active; i++) {
     int thisChar = charToInt(line[i]);
     if (thisChar > firstBattery) {
       firstBattery = thisChar;
@@ -16,24 +28,19 @@ int maxVoltage(std::string_view line) {
     }
   }
 
-  int secondBattery = 0;
-  for (int i = firstIdx + 1; i < line.length(); i++) {
-    int thisChar = charToInt(line[i]);
-    if (thisChar > secondBattery) {
-      secondBattery = thisChar;
-    }
+  uint64_t totalPower = firstBattery * ipow(10, active - 1);
+  if (active > 1) {
+    totalPower += maxVoltage(line.substr(firstIdx + 1), active - 1);
   }
-
-  return (firstBattery * 10) + secondBattery;
+  return totalPower;
 }
 
-int totalVoltage(std::filesystem::path file) {
+uint64_t totalVoltage(std::filesystem::path file) {
   auto lines = readlines(file, '\n');
-  int sum = 0;
+  uint64_t sum = 0;
 
   for (auto &line : lines) {
-    int max = maxVoltage(line);
-    std::cout << line << " " << max << std::endl;
+    uint64_t max = maxVoltage(line, ActiveBatteries);
     sum += max;
   }
 
@@ -41,8 +48,8 @@ int totalVoltage(std::filesystem::path file) {
 }
 
 int main() {
-  int res = totalVoltage("assets/3/example.txt");
-  std::cout << res << " expected 92" << std::endl;
+  uint64_t res = totalVoltage("assets/3/example.txt");
+  std::cout << res << " expected 3121910778619" << std::endl;
 
   res = totalVoltage("assets/3/input.txt");
   std::cout << "Total: " << res << std::endl;
