@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -21,7 +22,14 @@ std::vector<std::string> readlines(std::filesystem::path path, char sep) {
 struct Range {
   int64_t begin;
   int64_t end;
+
+  void print() { std::cout << begin << '-' << end << std::endl; }
 };
+
+bool operator<(const Range &lhs, const Range &rhs) {
+  return lhs.begin < rhs.begin;
+}
+
 Range splitHyphens(const std::string &line) {
   std::string sstart = line.substr(0, line.find('-'));
   std::string send = line.substr(sstart.length() + 1, line.length());
