@@ -7,7 +7,7 @@
 
 std::vector<std::string> readlines(std::filesystem::path path, char sep) {
   std::ifstream stream(path);
-  if (stream.bad()) {
+  if (!stream.is_open()) {
     throw std::runtime_error("Unable to read file");
   }
 
