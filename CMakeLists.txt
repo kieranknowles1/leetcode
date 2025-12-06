@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 4.1.0)
 project(leetcode)
 
+set(CMAKE_CXX_STANDARD 23)
+
 # Advent of code often relies on larger values than can fit in a u32. Check
 # for overflows caused by this.
 add_compile_options(-fsanitize=integer)
