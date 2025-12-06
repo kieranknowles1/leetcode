@@ -17,3 +17,15 @@ std::vector<std::string> readlines(std::filesystem::path path, char sep) {
   }
   return out;
 }
+
+struct Range {
+  int64_t begin;
+  int64_t end;
+};
+Range splitHyphens(const std::string &line) {
+  std::string sstart = line.substr(0, line.find('-'));
+  std::string send = line.substr(sstart.length() + 1, line.length());
+  int64_t start = std::stoll(sstart);
+  int64_t end = std::stoll(send);
+  return {start, end};
+}

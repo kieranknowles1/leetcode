@@ -40,12 +40,9 @@ int64_t invalidIdSum(std::filesystem::path file) {
   int64_t sum = 0;
 
   for (auto &line : lines) {
-    std::string sstart = line.substr(0, line.find('-'));
-    std::string send = line.substr(sstart.length() + 1, line.length());
-    int64_t start = std::stoll(sstart);
-    int64_t end = std::stoll(send);
+    auto range = splitHyphens(line);
 
-    for (int64_t i = start; i <= end; i++) {
+    for (int64_t i = range.begin; i <= range.end; i++) {
       if (!productValid(i)) {
         sum += i;
       }
