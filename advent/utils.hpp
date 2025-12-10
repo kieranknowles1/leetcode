@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -28,6 +29,21 @@ struct Range {
 
 bool operator<(const Range &lhs, const Range &rhs) {
   return lhs.begin < rhs.begin;
+}
+
+struct Vector2 {
+  int x;
+  int y;
+};
+bool operator<(const Vector2 &lhs, const Vector2 &rhs) {
+  if (lhs.x < rhs.x)
+    return true;
+  if (lhs.x > rhs.x)
+    return false;
+  return lhs.y < rhs.y;
+}
+bool operator==(const Vector2 &lhs, const Vector2 &rhs) {
+  return lhs.x == rhs.x && lhs.y == rhs.y;
 }
 
 Range splitHyphens(const std::string &line) {
