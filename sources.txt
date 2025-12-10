@@ -10,3 +10,4 @@ advent/3-power.cpp
 advent/4-printer.cpp
 advent/5-cafe.cpp
 advent/6-math.cpp
+advent/7-teleport.cpp
