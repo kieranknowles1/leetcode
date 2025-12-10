@@ -11,3 +11,4 @@ advent/4-printer.cpp
 advent/5-cafe.cpp
 advent/6-math.cpp
 advent/7-teleport.cpp
+advent/8-junctions.cpp
